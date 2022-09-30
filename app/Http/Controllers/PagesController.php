@@ -55,7 +55,7 @@ class PagesController extends Controller
         $post->set_date = $request->set_date;
         $post->save();
 
-        return redirect()->intended('/');
+        return back();
     }
 
     public function markAsDone(Request $request)

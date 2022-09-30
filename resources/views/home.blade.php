@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="text-center col-md-6">
                                     <p class="fw-bold">Set Date:
-                                        {{ $post->set_date ? date('F d, Y | h:i:m a', strtotime($post->set_date)) : 'To be set' }}
+                                        {{ $post->set_date ? date('F d, Y | h:i a', strtotime($post->set_date)) : 'To be set' }}
                                     </p>
                                 </div>
                                 <div class="text-center col-md-6">
