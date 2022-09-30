@@ -18,10 +18,19 @@
                                     <h3 class="text-center">{{ $post->title }}</h3>
                                 </div>
                                 <div class="col-md-12">
-                                    <p class="text-center f-4">{!! nl2br($post->content) !!}</p>
+                                    <p class="text-center f-4">
+                                        {{-- {!! nl2br($post->content) !!} --}}
+                                        @php
+                                            $url = '/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
+                                            $string = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $post->content);
+                                            echo nl2br($string);
+                                        @endphp
+                                    </p>
                                 </div>
                                 <div class="text-center col-md-6">
-                                    <p class="fw-bold">Set Date: {{ $post->set_date ? date('F d, Y | h:i:m a', strtotime($post->set_date)) : 'To be set' }}</p>
+                                    <p class="fw-bold">Set Date:
+                                        {{ $post->set_date ? date('F d, Y | h:i:m a', strtotime($post->set_date)) : 'To be set' }}
+                                    </p>
                                 </div>
                                 <div class="text-center col-md-6">
                                     <p class="fw-bold">Is Date Done?: <span
@@ -35,20 +44,24 @@
                                     <button class="mx-1 btn btn-sm btn-warning" type="button" title="Edit"
                                         onclick="getList({{ $post->id }}, '{{ $post->title }}')"><i
                                             class="fa fa-pencil"></i></button>
-                                    @if($post->is_done == "" || $post == null)
-                                        <button class="mx-1 btn btn-sm btn-success" onclick="markAsDone({{$post->id}})" type="button" title="Mark as Done">Mark as
-                                        Done</button>
+                                    @if ($post->is_done == '' || $post == null)
+                                        <button class="mx-1 btn btn-sm btn-success"
+                                            onclick="markAsDone({{ $post->id }})" type="button"
+                                            title="Mark as Done">Mark as
+                                            Done</button>
                                     @else
-                                        <button class="mx-1 btn btn-sm btn-primary" onclick="markAsNotDone({{$post->id}})" type="button" title="Mark as Done">Mark as
+                                        <button class="mx-1 btn btn-sm btn-primary"
+                                            onclick="markAsNotDone({{ $post->id }})" type="button"
+                                            title="Mark as Done">Mark as
                                             Not done</button>
                                     @endif
-                                    <button class="mx-1 btn btn-sm btn-danger" onclick="deleteList({{$post->id}})" type="button" title="Delete"><i
-                                            class="fa fa-trash"></i></button>
+                                    <button class="mx-1 btn btn-sm btn-danger" onclick="deleteList({{ $post->id }})"
+                                        type="button" title="Delete"><i class="fa fa-trash"></i></button>
                                 </div>
                             </div>
                         @endforeach
 
-                        <div class="container mt-5 d-flex justify-content-center">{{$posts->links()}}</div>
+                        <div class="container mt-5 d-flex justify-content-center">{{ $posts->links() }}</div>
                     </div>
                 </div>
             </div>
@@ -95,5 +108,4 @@
             </div>
         </div>
     </div>
-   
 @endsection

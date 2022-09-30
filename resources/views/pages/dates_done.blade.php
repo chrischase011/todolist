@@ -18,7 +18,14 @@
                                     <h3 class="text-center">{{ $post->title }}</h3>
                                 </div>
                                 <div class="col-md-12">
-                                    <p class="text-center f-4">{!! nl2br($post->content) !!}</p>
+                                    <p class="text-center f-4">
+                                        {{-- {!! nl2br($post->content) !!} --}}
+                                        @php
+                                            $url = '/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/';
+                                            $string = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $post->content);
+                                            echo nl2br($string);
+                                        @endphp
+                                    </p>
                                 </div>
                                 <div class="text-center col-md-6">
                                     <p class="fw-bold">Set Date: {{ $post->set_date ? date('F d, Y | h:i:m a', strtotime($post->set_date)) : 'To be set' }}</p>
