@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,5 @@ Route::group(['middleware' => 'checkAccess'], function()
     Route::post('/markAsDone', [PagesController::class, 'markAsDone'])->name('pages.mark_done');
     Route::post('/markAsNotDone', [PagesController::class, 'markAsNotDone'])->name('pages.mark_not_done');
     Route::post('/deleteList', [PagesController::class, 'deleteList'])->name('pages.delete_list');
+    Route::get('/datesDone', [HomeController::class, 'datesDoneIndex'])->name('pages.dates_done');
 });

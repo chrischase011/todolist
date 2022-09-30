@@ -16,6 +16,10 @@ class PagesController extends Controller
         return view('pages.add_new_list');
     }
 
+ 
+
+    // Functions
+
     public function addNewList(Request $request)
     {
         $request->validate([

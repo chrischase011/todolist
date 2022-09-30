@@ -9,22 +9,22 @@
                     <div class="card-body">
                         <form action="{{route('pages.add_new_list')}}" method="post">
                             {{ csrf_field() }}
-                            <div class="row my-3">
+                            <div class="my-3 row">
                                 <label for="title" class="col-md-12">Title</label>
                                 <div class="col-md-12">
                                     <input type="text" name="title" id="title" value="{{old('title')}}" class="form-control bg-list" required>
                                 </div>
                             </div>
-                            <div class="row my-3">
+                            <div class="my-3 row">
                                 <label for="content" class="col-md-12">Content</label>
                                 <div class="col-md-12">
                                     <textarea class="form-control bg-list" name="content" id="content" style="resize:none;" rows="10" required>{{old('content')}}</textarea>
                                 </div>
                             </div>
-                            <div class="row my-3">
+                            <div class="my-3 row">
                                 <label for="set_date" class="col-md-12">Set Date</label>
                                 <div class="col-md-12">
-                                    <input type="date" name="set_date" id="set_date" class="form-control bg-list" value="{{old('set_date')}}">
+                                    <input type="datetime-local" name="set_date" id="set_date" class="form-control bg-list" value="{{old('set_date')}}">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg w-100">Save Changes</button>

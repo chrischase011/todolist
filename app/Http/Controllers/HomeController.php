@@ -26,8 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Posts::where(['user_id' => Auth::id()])->orderBy('set_date', 'ASC')->paginate(5);
+        $posts = Posts::where(['user_id' => Auth::id(), 'is_done' => ''])->orWhere(['is_done' => null])->orderBy('set_date', 'ASC')->paginate(5);
         return view('home', ['posts' => $posts]);
+    }
+
+    public function datesDoneIndex()
+    {
+        $posts = Posts::where(['user_id' => Auth::id(), 'is_done' => '1'])->orderBy('set_date', 'ASC')->paginate(5);
+        return view('pages.dates_done', ['posts' => $posts]);
     }
 
 }

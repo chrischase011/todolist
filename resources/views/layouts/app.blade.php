@@ -6,6 +6,13 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="title" content="Our Todolist">
+    <meta name="author" content="Christopher Robin Chase">
+    <meta name="description" content="Our Todolist">
+    <meta name="keywords" content="Todolist, Our Todolist, Todo, list, our-todolist, ourtodolist">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="{{ URL::asset('assets/img/list.png') }}" type="image/png">
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
@@ -28,7 +35,7 @@
         }
     </style>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <nav class="shadow-sm navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -42,6 +49,9 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('pages.dates_done') }}">{{ __('Date\'s Done ') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('pages.add_new') }}">{{ __('Add New List') }}</a>
@@ -92,4 +102,87 @@
         </main>
     </div>
 </body>
+
+<footer class="container pb-3 flex-column d-flex justify-content-center">
+    <a href="https://www.flaticon.com/free-icons/list" title="list icons" class="text-center text-decoration-none">List icons created by Freepik - Flaticon</a>
+    <p class="text-center text-white">Chase &copy; {{ date('Y') }}</p>
+</footer>
+
+<script>
+    function getList(id, title) {
+        $("#edit-title").text(title);
+
+        $.ajax({
+            url: "{{ route('pages.get_list') }}",
+            type: 'post',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                id: id
+            },
+            dataType: 'json',
+            success: (data) => {
+                // $.each(data, (i, e) => {
+                //     console.log(e);
+                $("#title").val(data.title);
+                $("#content").val(data.content);
+                $("#set_date").val(data.set_date);
+                $("#id").val(data.id);
+                // });
+
+                $("#editList").modal('show');
+            }
+        });
+    }
+
+    function markAsDone(id)
+    {
+        $.ajax({
+            url: "{{route('pages.mark_done')}}",
+            type: 'post',
+            data: {'_token':'{{csrf_token()}}', id:id},
+            dataType: 'html',
+            success: (data) => {
+                window.location.reload();
+            }
+        });
+    }
+    function markAsNotDone(id)
+    {
+        $.ajax({
+            url: "{{route('pages.mark_not_done')}}",
+            type: 'post',
+            data: {'_token':'{{csrf_token()}}', id:id},
+            dataType: 'html',
+            success: (data) => {
+                window.location.reload();
+            }
+        });
+    }
+
+    function deleteList(id)
+    {
+        Swal.fire({
+            title:'Delete List?',
+            text: 'Are you sure you want to delete this list?',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonClass: "bg-danger",
+            showCancelButton: true,
+            cancelButtonClass: "bg-success"
+        }).then((res) =>{
+            if(res.isConfirmed)
+            {
+                $.ajax({
+                    url: "{{route('pages.delete_list')}}",
+                    type: 'post',
+                    data: {'_token':'{{csrf_token()}}', id:id},
+                    dataType: 'html',
+                    success: (data) =>{
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    }
+</script>
 </html>
