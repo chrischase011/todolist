@@ -33,6 +33,7 @@ class PagesController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'set_date' => $request->set_date,
+            'is_done' => 0,
         ]);
 
         if($post)
@@ -71,7 +72,7 @@ class PagesController extends Controller
     public function markAsNotDone(Request $request)
     {
         $post = Posts::findOrFail($request->id);
-        $post->is_done = '';
+        $post->is_done = '0';
         $post->save();
 
         return 1;
