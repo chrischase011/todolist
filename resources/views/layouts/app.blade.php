@@ -57,7 +57,7 @@
                             <a class="nav-link" href="{{ route('pages.add_new') }}">{{ __('Add New List') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Gallery') }}</a>
+                            <a class="nav-link" href="{{ route('pages.gallery') }}">{{ __('Gallery') }}</a>
                         </li>
                     </ul>
 

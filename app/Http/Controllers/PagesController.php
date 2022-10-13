@@ -85,4 +85,12 @@ class PagesController extends Controller
 
         return 1;
     }
+
+
+    // GALLERY
+
+    public function galleryIndex()
+    {
+        return view('pages.gallery');
+    }
 }

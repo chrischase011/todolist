@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <button class="mx-1 btn btn-sm btn-warning" type="button" title="Edit"
-                                        onclick="getList({{ $post->id }}, '{{ $post->title }}')"><i
+                                        onclick='getList({{ $post->id }}, "{{ $post->title }}")'><i
                                             class="fa fa-pencil"></i></button>
                                     @if ($post->is_done == '' || $post->is_done == null || $post->is_done == 0)
                                         <button class="mx-1 btn btn-sm btn-success"
