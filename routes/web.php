@@ -31,4 +31,5 @@ Route::group(['middleware' => 'checkAccess'], function()
     Route::post('/deleteList', [PagesController::class, 'deleteList'])->name('pages.delete_list');
     Route::get('/datesDone', [HomeController::class, 'datesDoneIndex'])->name('pages.dates_done');
     Route::get("/gallery", [PagesController::class, 'galleryIndex'])->name("pages.gallery");
+    Route::get("/resto_roulette", [PagesController::class, 'restoRoulette'])->name("pages.resto_roulette");
 });

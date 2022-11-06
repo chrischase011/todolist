@@ -93,4 +93,11 @@ class PagesController extends Controller
     {
         return view('pages.gallery');
     }
+
+    // Resto Roulette
+
+    public function restoRoulette()
+    {
+        return view('pages.resto_roulette');
+    }
 }
