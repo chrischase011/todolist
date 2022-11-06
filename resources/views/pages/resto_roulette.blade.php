@@ -70,9 +70,6 @@
                 if (resto) {
                     $("#spin").prop('disabled', false);
 
-                    var arr = resto.split(",");
-                    // Load first data on resto-data
-                    $("#resto-data").text(arr[0].trim());
                 } else {
 
                     $("#spin").prop('disabled', true);
