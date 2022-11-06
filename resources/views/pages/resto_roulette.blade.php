@@ -78,7 +78,6 @@
 
                 $.cookie("resto", resto, {
                     expires: 1000,
-                    path: '/',
                     secure: true
                 });
 
