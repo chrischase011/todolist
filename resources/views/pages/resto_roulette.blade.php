@@ -63,7 +63,7 @@
 
 
             });
-            // Save resto to browser cookie every 1.5 seconds
+            // Save resto to browser cookie every 2.5 seconds
             setInterval(() => {
                 var resto = $("#resto").val();
 
