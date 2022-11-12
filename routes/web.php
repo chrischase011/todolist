@@ -32,4 +32,5 @@ Route::group(['middleware' => 'checkAccess'], function()
     Route::get('/datesDone', [HomeController::class, 'datesDoneIndex'])->name('pages.dates_done');
     Route::get("/gallery", [PagesController::class, 'galleryIndex'])->name("pages.gallery");
     Route::get("/resto_roulette", [PagesController::class, 'restoRoulette'])->name("pages.resto_roulette");
+    Route::post("/save_resto", [PagesController::class, 'saveResto'])->name("pages.save_resto");
 });

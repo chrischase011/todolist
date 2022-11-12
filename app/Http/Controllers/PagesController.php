@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posts;
+use App\Models\Restaurants;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,6 +99,35 @@ class PagesController extends Controller
 
     public function restoRoulette()
     {
-        return view('pages.resto_roulette');
+        $resto = Restaurants::where(["user_id" => Auth::id()])->get('restaurants');
+        return view('pages.resto_roulette', ['resto' => $resto]);
+    }
+
+    public function saveResto(Request $request)
+    {
+       
+        $id = $request->id;
+        $resto = $request->resto;
+        $check = Restaurants::where(['user_id' => $id])->get();
+        if(count($check) > 0 )
+        {
+            $_id = 0;
+            foreach($check as $data)
+            {
+                $_id = $data->id;
+            }
+            $update = Restaurants::find($_id);
+            $update->restaurants = $resto;
+            $update->save();
+        }
+        else
+        {
+            Restaurants::create([
+                'user_id' => $id,
+                'restaurants' => $resto,
+            ]);
+        }
+
+        return 1;
     }
 }

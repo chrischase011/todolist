@@ -31,7 +31,9 @@
                 <h4 class="text-white text-center">Please input any resto here <br><span class="h5">(please separate
                         with
                         comma)</span></h4>
-                <textarea class="form-control w-100" id="resto" rows="10" style="resize: none"></textarea>
+                        @foreach($resto as $_resto)@endforeach
+                <textarea class="form-control w-100" id="resto" rows="10" style="resize: none">{{count($resto) > 0 ? $_resto->restaurants : ''}}</textarea>
+                <button type="button" class="btn btn-primary text-center mt-3" onclick="saveRestaurant({{Auth::id()}})">Save</button>
                 <button type="button" class="btn btn-secondary text-center mt-3" onclick="randomize()">Randomize</button>
             </div>
         </div>
@@ -41,8 +43,8 @@
                 // Load data from cookie
                 var data = $.cookie("resto");
 
-                if (data !== null || data !== "")
-                    $("#resto").val(data);
+                // if (data !== null || data !== "")
+                //     $("#resto").val(data);
 
                 // Array data
 
@@ -126,6 +128,31 @@
                 $("#resto").val(randomize);
                 $("#resto-data").text(arr[0].trim());
             }
-        </script>
 
+            function saveRestaurant(id)
+            {
+                var resto = $("#resto").val();
+
+                $.ajax({
+                    url: "{{route('pages.save_resto')}}",
+                    type: 'post',
+                    data: {"_token":"{{csrf_token()}}", id:id, resto:resto},
+                    dataType: 'html',
+                    success: (data) => {
+                        if(data == 1)
+                        {
+                            var arr = resto.split(",");
+                            $("#resto-data").text(arr[0].trim());
+                        }
+                        else
+                        {
+                            alert("Unexpected error occurred.");
+                        }
+
+                    }
+
+                });
+
+            }
+        </script>
     @endsection
